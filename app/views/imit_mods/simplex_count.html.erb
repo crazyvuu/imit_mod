@@ -1,0 +1,16 @@
+<html>
+<head>
+</head>
+
+<body>
+<table>
+  <% @table = @table.map { |row| row.map { |num| number_with_precision(num, :precision => 2, :delimiter => ',').to_f } } %>
+  <td>Result:</td>
+  <td>
+    <%= @table[0] %><br>
+    <%= @table[1] %><br>
+    <%= @table[2] %><br>
+  </td>
+</table>
+</body>
+</html>

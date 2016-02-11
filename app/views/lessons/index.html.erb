@@ -1,0 +1,23 @@
+<script>
+    var test = function (cond, y, x) {
+        if (confirm(cond)) y();
+        else x();
+    }
+
+    test('Ты конь?',
+            function () {
+                alert('Ну ты и конь.');
+            },
+            function () {
+                test('Уверен?',
+
+                        function () {
+                            alert('Не ври. Ты конь.');
+                        },
+                        function () {
+                            alert('Ну ты и конь.');
+                        }
+                )
+            }
+    )
+</script>
