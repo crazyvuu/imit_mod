@@ -1,5 +1,5 @@
 class ImitModsController < ApplicationController
-  include Simplex
+  require "#{Rails.root}/app/modules/simplex"
   require 'json'
 
   # GET //imit_mod/simplex/count
