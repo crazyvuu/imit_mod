@@ -9,6 +9,19 @@ class Simplex
     @x_pos = Array.new(@table[0].length - 1) { @table[0].length }
   end
 
+  def iteration
+    while (@goal.any? { |n| n < 0 })
+      set_key_elem
+      jordan_conversion
+      @free_elems = @table.map { |row| row[row.length - 1] }
+    end
+    if (@goal[@goal.length - 1] % 1 != 0)
+      @x = ImitMod::x_form(@table, @x_pos)
+      set_new_conditions(@x)
+      iteration
+    end
+  end
+
   def set_key_elem
     negative_elem = @goal.find { |elem| elem < 0 }
     key_column_index = @goal.find_index(negative_elem)
@@ -73,5 +86,10 @@ class Simplex
     else
       @x_pos[@key_elem_coords[1]] = @key_elem_coords[0]
     end
+  end
+
+  def set_new_conditions(x_array)
+    x_current = x_array.detect { |x| x % 1 > 0 }
+    @x_current_cond = [x_current.to_i, x_current.to_i + 1]
   end
 end

@@ -12,4 +12,8 @@ class ImitMod < ActiveRecord::Base
     end
     x
   end
+
+  def self.result_matrix_form(table, goal)
+    table + goal
+  end
 end
