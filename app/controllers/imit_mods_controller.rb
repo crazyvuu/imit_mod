@@ -23,12 +23,10 @@ class ImitModsController < ApplicationController
       simplex.free_elems = simplex.table.map { |row| row[row.length - 1] }
       @steps += 1
     end
+    if (simplex.goal[simplex.goal.length - 1] % 1 != 0)
+    end
     @table = (simplex.table + [simplex.goal])
-# if ((z % 1) != 0)
-#   x11 = x1.to_i
-#   x12 = (x1 + 1).to_i
-# end
-#
+    @x = ImitMod::x_form(@table, simplex.x_pos)
 # y3 = [1.0, 0.0, x11.to_f]
 # free_elems = [y1[y1.length - 1], y2[y2.length - 1], y3[y3.length - 1]]
 # goal = [-23.0, -18.0, 0.0]

@@ -1,10 +1,12 @@
 class Simplex
   attr_accessor :table, :old_table, :goal, :free_elems
+  attr_reader :x_pos
 
   def initialize(conditions, goal, free_elems)
     @table = conditions
     @goal = goal
     @free_elems = free_elems
+    @x_pos = Array.new(@table[0].length - 1) { @table[0].length }
   end
 
   def set_key_elem
@@ -20,6 +22,7 @@ class Simplex
     key_row_index = ratio_array.reject { |val| val.nil? }.find_index(ratio_array.min)
     @key_elem = @table[key_row_index][key_column_index]
     @key_elem_coords = [key_row_index, key_column_index]
+    set_x_pos
   end
 
   def jordan_conversion
@@ -61,5 +64,14 @@ class Simplex
       i+=1
     end
     @goal[@key_elem_coords[1]] = -@goal[@key_elem_coords[1]]/@key_elem
+  end
+
+  def set_x_pos
+    if (@x_pos.include?(@key_elem_coords[0]))
+      @x_pos[@x_pos.bsearch { |x| x == @key_elem_coords[0] }] = @table[0].length
+      @x_pos[@key_elem_coords[1]] = @key_elem_coords[0]
+    else
+      @x_pos[@key_elem_coords[1]] = @key_elem_coords[0]
+    end
   end
 end

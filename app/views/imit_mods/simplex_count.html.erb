@@ -12,5 +12,6 @@
     <%= @table[2] %><br>
   </td>
 </table>
+X = <%= @x.map { |num| number_with_precision(num, :precision => 2, :delimiter => ',').to_f } %>
 </body>
 </html>
